@@ -1,0 +1,492 @@
+<head>
+	<title>
+		Henry Tysoe
+	</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel='StyleSheet' href='main.css' type='text/css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+	// using jQuery for doc ready 
+	// 	pure js solution possible 
+	$(document).ready(function() {
+		
+		article = document.getElementById("main_content");		
+		sections = article.getElementsByTagName("section");
+		
+		nav = document.getElementById("main_nav");
+		nav_links = document.getElementsByTagName("li");
+		
+		additional_article = document.getElementById("additional_content");
+		additional_sections = additional_article.getElementsByTagName("section");
+		additional_nav = document.getElementById("additional_nav");
+		additional_links = additional_nav.getElementsByTagName("li");
+		
+		
+		nav_links[0].addEventListener("click", function(){ retab(sections, nav_links[0]); } );
+		nav_links[1].addEventListener("click", function(){ retab(sections, nav_links[1]); } );
+		nav_links[2].addEventListener("click", function(){ retab(sections, nav_links[2]); } );
+		nav_links[3].addEventListener("click", function(){ retab(sections, nav_links[3]); } );
+		nav_links[4].addEventListener("click", function(){ retab(sections, nav_links[4]); } );
+		
+		
+		additional_links[0].addEventListener("click", function(){ retab(additional_sections, additional_links[0]); } );
+		additional_links[1].addEventListener("click", function(){ retab(additional_sections, additional_links[1]); } );
+		additional_links[2].addEventListener("click", function(){ retab(additional_sections, additional_links[2]); } );
+		
+		
+		function retab(sections_array, link)
+		{
+			// hide all sections
+			for (i = 0; i < sections_array.length; i++) 
+			{
+				sections_array[i].style.display = "none";
+			}
+			// set 
+			section_id = link.id.replace("_li", "");
+			section = document.getElementById(section_id);
+			
+			section.style.display = "flex";
+		}
+			
+		
+		
+		
+		retab(sections, nav_links[3]);
+				
+		game_canvas = document.getElementById("game_canvas");
+		console.log(game_canvas);
+
+		game_canvas.width = game_canvas.height * 
+			(game_canvas.clientWidth / game_canvas.clientHeight);
+		ctx = game_canvas.getContext("2d");
+		
+		
+		function getRndInteger(min, max) {
+			return Math.floor(Math.random() * (max - min + 1) ) + min;
+		}
+		function getStartDirection() {
+			if (Math.random() < 0.5) {
+				return 1;
+			}
+			else {
+				return -1;
+			}
+		}
+		//ctx.stroke();
+		
+		
+		function circleIntersect(x1, y1, r1, x2, y2, r2) 
+		{
+			// Calculate the distance between the two circles
+			let squareDistance = (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2);
+
+			// When the distance is smaller or equal to the sum
+			// of the two radius, the circles touch or overlap
+			return squareDistance <= ((r1 + r2) * (r1 + r2))
+		}
+		
+		class Sprite {
+			constructor(start_x, start_y, colour, size) 
+			{
+				this.x = start_x;
+				this.y = start_y;
+				this.x_dir = getStartDirection();
+				this.y_dir = getStartDirection();
+				this.speed = 5;
+				this.size = size;
+				this.colour = colour;
+			}
+			update = function() 
+			{
+				this.x = this.x + (this.x_dir * this.speed);
+				this.y = this.y + (this.y_dir * this.speed);
+				
+				if (this.x >= game_canvas.width - this.size || this.x <= this.size) 
+				{
+					this.x_dir = 0 - this.x_dir;
+				}
+				if (this.y >= (game_canvas.height - this.size) || this.y <= this.size) 
+				{
+					this.y_dir = 0 - this.y_dir;
+				}
+				
+			}
+			draw = function()
+			{
+				ctx.beginPath();
+				ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+				ctx.fillStyle = this.colour;
+				ctx.fill();
+				
+			}
+			play = function(ctx) {
+				this.update();
+				this.draw(ctx);
+			}
+		}
+		class Player extends Sprite
+		{
+			constructor () {
+				super(50,50,"pink",25);
+				this.speed = 10;
+				this.playing = true;
+			}
+			play = function(ctx) {
+				this.update();
+				this.collide();
+				this.draw(ctx);
+			}
+			keyin = function(code)
+			{
+				console.log(code);
+				if (code == "KeyW")
+				{
+					if (this.y_dir > -1)
+					{
+						this.y_dir = this.y_dir - 1;
+					}
+					else 
+					{
+						this.x_dir = 0;
+					}
+				}
+				if (code == "KeyD")
+				{
+					if (this.x_dir < 1)
+					{
+						this.x_dir = this.x_dir + 1;
+					}
+					else 
+					{
+						this.y_dir = 0;
+					}
+				}
+				if (code == "KeyS")
+				{
+					if (this.y_dir < 1)
+					{
+						this.y_dir = this.y_dir + 1;
+					}
+					else 
+					{
+						this.x_dir = 0;
+					}
+				}
+				if (code == "KeyA")
+				{
+					if (this.x_dir > -1)
+					{
+						this.x_dir = this.x_dir - 1;
+					}
+					else 
+					{
+						this.y_dir = 0;
+					}
+				}
+			}
+			collide = function() {
+				for (i = 0; i < enemies.length; i++)
+				{
+					
+					if (circleIntersect(this.x, this.y, this.size, enemies[i].x, enemies[i].y, enemies[i].size))
+					{
+						if (enemies[i].size > this.size)
+						{
+							this.playing = false;
+						}
+						if (enemies[i].size < this.size)
+						{
+							player.size = player.size + (1 + (enemies[i].size / 25));
+							
+							enemies.splice(i,1);
+						}
+					}
+				}
+			}
+		}
+		enemies = [];
+		huge_enemies_num = 1;
+		large_enemies_num = 5;
+		small_enemies_num = 100;
+		enemy_size = 0;
+		
+		// to be sprite factory
+		function getNewSprite(size){
+			this.x = getRndInteger(size, game_canvas.width - 50);
+			this.y = getRndInteger(50, game_canvas.height - 50)
+			ret_sprite = new Sprite(this.x, this.y, "orange", size);
+			return ret_sprite;
+		}
+
+		function getEnemies()
+		{
+			for (i = 0; i < huge_enemies_num; i++)
+			{
+				enemies.push(getNewSprite((1 + (enemy_size / 2.5)) * 50));
+			}
+			for (i = 0; i < large_enemies_num; i++)
+			{
+				enemies.push(getNewSprite((1 + (enemy_size / 2.5)) * 20));
+			}
+			for (i = 0; i < small_enemies_num; i++)
+			{
+				enemies.push(getNewSprite((1 + (enemy_size / 2.5)) * 5));
+			}
+		}
+		function draw() 
+		{
+			ctx.clearRect(0,0,game_canvas.width,game_canvas.height);
+		}
+		
+		game_canvas.addEventListener("keydown", keyin, true);
+		function keyin(e) 
+		{
+			if (e.code == "Space")
+			{
+				new_game();
+			}
+			if (e.code == "Enter")
+			{
+				player.playing = false;
+			}
+				player.keyin(e.code);
+		}
+		function new_game() 
+		{
+			player = new Player(50, 50, "pink", 5);
+			game();
+		}
+		
+		function game()
+		{
+			draw();
+			if (enemies.length < 50) 
+			{
+				enemy_size++;
+				player.size = player.size / 2.5;
+				console.log("jflk");
+				getEnemies(enemies);
+			}
+			for (i = 0; i < enemies.length; i++)
+			{
+				enemies[i].play(ctx);
+			}
+			player.play(ctx);
+			if (player.playing)
+			{
+				setTimeout(function()
+				{ game() }, 100);
+			}
+		}
+		//getEnemies();
+		
+		new_game();
+		
+		/*
+		*/
+		/*
+		player = 
+		{
+			x : 50,
+			y : 50,
+			x_dir : -1,
+			y_dir : 1,
+			speed : 5,
+			size  : 25,
+			update : funtion() {
+				player.x = player.x + (player.x_dir * player.speed);
+				player.y = player.y + (player.y_dir * player.speed);
+				
+				
+			}
+		};
+		enemy =
+		{
+			x : 500,
+			y : 500x_dir : -1,
+			y_dir : 1,
+			speed : 5,
+			size  : 25
+		};
+		
+			
+			
+		}
+		
+		*/
+	});
+
+
+	</script>
+</head>
+<body>
+
+<header>
+	<div class='top'>
+		<h1 class='hide' id='main_title'>Henry Tysoe</h1>	
+		<h3 class='hide'>tysoe1@live.co.uk</h3>
+		<embed class='' id='main_cv' src='./additional/CVHT.pdf#toolbar=0&zoom=90'>
+	</div>
+</header>
+
+<div class='level_container' id='main_body'>
+
+<nav class='' id='main_nav'>
+	<ul class='rotate'>
+		<li id='miller_li'><p> Miller </a></li>
+		<li id='adeva_li'><p> Adeva </a></li>
+		<li id='mowo_li'><p> MOWO </a></li>
+		<li id='game_li'><p> Game </a></li>
+		<li id='additional_li'><p> Additional Work </a></li>
+	</ul>
+</nav>
+
+
+<article id='main_content'>
+
+	
+	<section class='white' id='miller'>
+	
+		<h2 class='hide'>Miller Recruitment</h2><a href='' id='miller_link'></a><img width='20%' height='' class='logo' id='miller_logo' src='./MillerRecruitment/logo.jpeg'>
+
+		<div class='text_container' id='miller_text'>
+			<p>
+				This project involved rebuilding a site originally created using a website builder, implementing a backend to manage data recieved through the application, and providing views for: applicants to modify their applications; employers to view and contact applicants; and administrator tools to manage applicants and employers.
+			</p>
+		</div>
+		<div class='work_container' id='miller_work'>
+			<h3>Desktop Web Design</h3>
+			<img src='MillerRecruitment/admin1.png' width='95%'>
+			<img src='MillerRecruitment/admin2.png' width='95%'>
+			
+			<h3>Responsive Mobile Design</h3>
+			<img src='MillerRecruitment/adminRes1.png' width='45%'>
+			<img src='MillerRecruitment/adminRes2.png' width='45%'>
+		</div>
+	</section>
+	
+	<section class='grey' id='adeva'>
+		<h2 class='hide'>Adeva Partners Ltd</h2><a href='https://www.adevapartners.com' id='adeva_link'></a><img class='logo' id='adeva_logo' src='./AdevaPartnersLtd/adeva-logo.png'>
+		
+		<div class='text_container' id='adeva_text'>
+			<p>
+				<a href='https://www.adevapartners.com'>Adeva Partners Ltd</a> is a training and consulting firm working in the field of credit, risk and corporate finance.
+			</p>
+			<p>
+				Working here I was tasked with updating the methods which were used to add programmatic functionality to their pdf worksheets. 
+				Initially all validation was programmed into these sheets, by a non technical designer, through a labourious process using 'drag and drop' elements from Adobe Acrobat. 
+				I was able to identify a method of including this functionality through JavaScript code, this workflow ended up taking less time to complete and made errors less frequent and easier to diagnose.
+			</p>
+			<p class='hide'>
+				Some of the most significant challanges of this project included following the original styling created by the Adeva team,  while having to modify if not replace some existing simple elements with script modifyable content. 
+			</p>
+		</div>
+		<div class='work_container' id='adeva_work'>
+			<embed src='./AdevaPartnersLtd/AQI.pdf#toolbar=0' width='500' height='500' type='application/pdf'>
+			<embed src='./AdevaPartnersLtd/EI.pdf#toolbar=0' width='500' height='500' type='application/pdf'>
+			<embed src='./AdevaPartnersLtd/LI.pdf#toolbar=0' width='500' height='500' type='application/pdf'>
+		</div>
+	</section>
+	
+	<section class='white' id='mowo'>
+		<h2 class='hide'>MOWO</h2><a href='' id='mowo_link'></a><img class='logo' id='mowo_logo' src='./MOWO/logo.png'>
+		<div class='text_container' id='mowo_text'>
+			<p>
+				MOWO was a data aggregation service operating in the Telecoms and Financial Sectors created as a rebranding of the 'The Mobile World' company. 
+			</p>
+			<p>
+				This redevelopment project sought a more efficient and automatic method of delivering data to clients through a web based data access portal as well as a redesigned 'front page' website to attract visitors.
+				I was involved as a technical liaison between the individual teams contracted to develop these: a development firm and a design and branding agency.
+			</p>
+			<p>
+				Contact with the development firm focused primarily on the definition of requirements and, later on in the project, the development of features.
+				In many ways I fulfilled the role of translator between the MOWO team comprised mostly of ex-financial analysts and the technically minded developers.
+			</p>
+			<p>
+				Meanwhile contact with the design agency revolved around refining the language used in promotional materials as well as ensuring any visual designs would fit with the owner's intended brand image.
+			</p>
+			<p>
+				The team had also faced issues with workload in Microsoft Excel caused by exceptionally large filesizes. 
+				To address this issue I worked with their analysts to further segment working files as well as installing new bespoke machines and upgrading existing hardware designed to mitigate this problem.
+			</p>
+			<p>
+				The video embedded below shows the data access system to give a sense of the requirements of this project.
+			</p>
+		</div>
+		<div class='work_container' id='mowo_work'>
+				<img src='./MOWO/email1.png'>
+				<img src='./MOWO/email2.png'>
+			
+				<iframe title="vimeo-player" src="https://player.vimeo.com/video/252401960" width="640" height="360" frameborder="0" allowfullscreen></iframe>	
+		</div>
+	</section>
+	<section class='white' id='game'>
+	
+		<div class='work_container' id='game_work'>
+			<canvas id='game_canvas' tabindex='10' width='900px' height='700px'>
+				canvas element unsupported
+			</canvas>
+		</div>
+	</section>
+	<section class='grey' id='additional'>
+		<div class='level_container' id='additional_body'>
+			<nav id='additional_nav'>
+				<ul class='rotate'>
+					<li id='graphic_li'><p>Graphic</p></li>
+					<li id='video_li'><p>Video</p></li>
+					<li id='audio_li'><p>Audio</p></li>
+				</ul>
+			</nav>
+			<article id='additional_content'>
+				<section id='graphic'>
+					<h3>Adobe XD Design Boards and Prototyping</h3>
+						<div class='work_container' id='additional_work_xd'>
+							<img width='1000px' src='./additional/XD.png'>
+							<img width='20%' src='./additional/XD2.png'>
+						</div>
+					<h3>Basic Icon Designs</h3>
+						<div class='work_container' id='additional_work_icons'>
+							<img width='20%' src='./additional/hanger_light.png'>
+							<img width='20%'  src='./additional/hanger_bold.png'>
+							<img width='20%' src='./additional/shopping_bag.png'>
+						</div>
+				</section>
+				<section id='video'>
+					
+					<h3>House & Carriage</h3>
+					
+					<div class='text_container'>
+						<p>During an internship at rbl brand agency I had the opportunity to work on projects that increased the scope of my skillset, from two dimensional animations to video editing.
+						Embedded below is an example of one of the video projects I was involved with. I was in charge of storyboarding and editing this particular video. 
+						</p>
+						<p>
+							Working on this project I was struck by how central charm and personability was to this business's brand identity. 
+							As such it was important to me to convey their personality with this short video piece. 
+							This lead the project in the direction of telling the story of the business opting to show how the business works instead of explicitly stating such.
+						</p>
+					</div>
+					<div class='work_container'>
+						<iframe src="https://player.vimeo.com/video/303297984?title=0&byline=0&portrait=0" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe><p><a href="https://vimeo.com/303297984">House &amp; Carriage | Full video</a> from <a href="https://vimeo.com/rblbrandagency">rbl brand agency</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+					</div>
+				</section>
+				<section id='audio'>
+					<h3>Also Some Music</h3>
+					
+					<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/121676744&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/tysoe11111" title="Tysoe" target="_blank" style="color: #cccccc; text-decoration: none;">Tysoe</a> · <a href="https://soundcloud.com/tysoe11111/mehverk" title="Mehverk" target="_blank" style="color: #cccccc; text-decoration: none;">Mehverk</a></div>
+					<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/119057873%3Fsecret_token%3Ds-0PBux&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/tysoe11111" title="Tysoe" target="_blank" style="color: #cccccc; text-decoration: none;">Tysoe</a> · <a href="https://soundcloud.com/tysoe11111/garden-of-eden-tysoe-remix/s-0PBux" title="Garden Of Eden Tysoe Remix" target="_blank" style="color: #cccccc; text-decoration: none;">Garden Of Eden Tysoe Remix</a></div>
+					<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/103107260&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/tysoe11111" title="Tysoe" target="_blank" style="color: #cccccc; text-decoration: none;">Tysoe</a> · <a href="https://soundcloud.com/tysoe11111/naissance" title="Naissance" target="_blank" style="color: #cccccc; text-decoration: none;">Naissance</a></div>
+					
+				</section>
+			</article>
+		</div>
+	</section>
+
+</article>
+</div>
+	
+
+<footer>
+
+</footer>
+
+</body>
