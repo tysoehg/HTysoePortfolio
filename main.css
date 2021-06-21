@@ -42,7 +42,7 @@ body {
 			transition: opacity 2s;
 		}
 		
-		header:hover {
+		header:focus {
 			height: 60% !important;
 		}
 		header:hover #main_cv {
