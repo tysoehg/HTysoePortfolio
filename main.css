@@ -50,6 +50,7 @@ body {
 		}
 		header:hover #main_cv {
 			opacity: 1;
+			height: 80%;
 		}
 		header:hover #main_title {
 			opacity: 0;
