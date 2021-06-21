@@ -1,0 +1,6 @@
+This directory includes projects completed for university.
+steponsneklive and snektwo are two Web Development projects: 
+- /steponsneklive is a networked single or double player implementation of snake that runs on an express and node.js http server with socket.io to handle networking.
+- /snektwo is a parallel service which can save game data such as highscores in a database, contains a login system and some API features. This runs on an *AMP system.
+
+/PROJECT relates to a research piece I conducted in the final year of my degree. For this project I developed an experimental model of crowd behaviour in nlogo to test the hypothesis that Social group familiarity and group size influences the speed of egress of evacuees in a typical evacuation scenario. The model was a success and fit the expectations set by existing research.
