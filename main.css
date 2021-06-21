@@ -16,6 +16,9 @@ body {
 		height: 1%;
 		
 		display: flex;
+		flex-direction: column;
+		
+		position: fixed;
 		
 		transition: height 2s;
 		
@@ -42,15 +45,14 @@ body {
 			transition: opacity 2s;
 		}
 		
-		header:focus {
-			background-color: blue;
+		header:hover {
 			height: 60% !important;
 		}
 		header:hover #main_cv {
-			opacity: ;
+			opacity: 1;
 		}
 		header:hover #main_title {
-			opacity: ;
+			opacity: 0;
 		}
 		
 	.level_container {
@@ -201,7 +203,7 @@ body {
 		position: fixed;
 		bottom: 0;
 		
-		
+		background-color: cyan;
 		
 		z-index: 100;
 		
