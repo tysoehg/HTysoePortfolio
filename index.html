@@ -243,11 +243,11 @@
 		game_canvas.addEventListener("keydown", keyin, true);
 		function keyin(e) 
 		{
-			if (e.code == "Space")
+			if (e.code == "Enter")
 			{
 				new_game();
 			}
-			if (e.code == "Enter")
+			if (e.code == "Space")
 			{
 				player.playing = false;
 			}
@@ -282,7 +282,6 @@
 		}
 		//getEnemies();
 		
-		new_game();
 		
 		/*
 		*/
@@ -425,6 +424,9 @@
 	<section class='white' id='game'>
 	
 		<div class='work_container' id='game_work'>
+			<p>
+				Press Enter to start a game; space to pause the game; w,a,s and d to move the pink ball.
+			</p>
 			<canvas id='game_canvas' tabindex='10' width='900px' height='700px'>
 				canvas element unsupported
 			</canvas>
