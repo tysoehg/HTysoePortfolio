@@ -43,13 +43,14 @@ body {
 		}
 		
 		header:focus {
+			background-color: blue;
 			height: 60% !important;
 		}
 		header:hover #main_cv {
-			opacity: 1;
+			opacity: ;
 		}
 		header:hover #main_title {
-			opacity: 0;
+			opacity: ;
 		}
 		
 	.level_container {
