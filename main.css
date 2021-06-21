@@ -43,16 +43,13 @@ body {
 		}
 		
 		header:hover {
-			height: 60%;
+			height: 60% !important;
 		}
 		header:hover #main_cv {
 			opacity: 1;
 		}
 		header:hover #main_title {
 			opacity: 0;
-		}
-		header:hover #main_body {
-			height: 10%;
 		}
 		
 	.level_container {
