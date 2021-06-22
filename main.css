@@ -28,7 +28,7 @@ body {
 		
 		transition: height 2s;
 		
-		background-color: #FFFF41;
+		background-color: #FFA52C;
 		
 		z-index: 100;
 	}	
@@ -96,7 +96,7 @@ body {
 			width: 5%;
 			height: 98%;
 			
-			background-color: #FF0018;
+			background-color: #FFA52C;
 			
 			position: fixed;
 			top: 1%;
@@ -126,7 +126,7 @@ body {
 				padding: 50% 0;
 			}
 			nav li:hover {
-				border-right: 5px solid #008018;
+				border-right: 5px solid black;
 				
 			}
 			#additional {
@@ -154,8 +154,6 @@ body {
 		#additional_content section {
 			overflow: hidden;
 			width: 100%;
-		}
-		#additional_content article {
 		}
 		article {
 			width: 95%;
@@ -261,7 +259,7 @@ body {
 		position: fixed;
 		bottom: 0;
 		
-		background-color: #FFFF41;
+		background-color: #FFA52C;
 		
 		z-index: 100;
 		
