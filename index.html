@@ -65,7 +65,7 @@
 		
 				
 		game_canvas = document.getElementById("game_canvas");
-		console.log(game_canvas);
+		flocking_canvas = document.getElementById("flocking_canvas");
 
 		//game_canvas.width = game_canvas.height * (game_canvas.clientWidth / game_canvas.clientHeight);
 		ctx = game_canvas.getContext("2d");
@@ -288,6 +288,52 @@
 				{ game() }, 100);
 			}
 		}
+		
+		
+		class Canvas_Piece 
+		{
+			constructor(canvas)
+			{
+				const cnv = canvas;
+				const ctx = cnv.getContext("2d");
+				concnv.addEventListener("keydown", this.keyin, true);
+				const entities = [];
+			}
+			this.restart = function()
+			{
+				
+			}
+			this.pause = function()
+			{
+				
+			}
+			this.update = function()
+			{
+				// update this background (if applicable)
+				// call update() on all entities
+			}
+			this.draw = function()
+			{
+				// ctx
+				// 	draw this background
+				// 	call draw() on all entities
+			}
+			this.keyin = function()
+			{
+				// set universal controls 
+				if (e.code == "Enter")
+				{
+					this.restart();
+				}
+				if (e.code == "Space")
+				{
+					this.pause();
+				}
+			}
+		}
+		
+		
+		
 		//getEnemies();
 		
 		
