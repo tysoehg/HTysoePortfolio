@@ -28,12 +28,12 @@
 		nav_links[1].addEventListener("click", function(){ retab(sections, nav_links[1]); } );
 		nav_links[2].addEventListener("click", function(){ retab(sections, nav_links[2]); } );
 		nav_links[3].addEventListener("click", function(){ retab(sections, nav_links[3]); } );
-		nav_links[4].addEventListener("click", function(){ retab(sections, nav_links[4]); } );
 		
 		
 		additional_links[0].addEventListener("click", function(){ retab(additional_sections, additional_links[0]); } );
 		additional_links[1].addEventListener("click", function(){ retab(additional_sections, additional_links[1]); } );
 		additional_links[2].addEventListener("click", function(){ retab(additional_sections, additional_links[2]); } );
+		additional_links[3].addEventListener("click", function(){ retab(additional_sections, additional_links[3]); } );
 		
 		
 		function retab(sections_array, link)
@@ -58,8 +58,7 @@
 		game_canvas = document.getElementById("game_canvas");
 		console.log(game_canvas);
 
-		game_canvas.width = game_canvas.height * 
-			(game_canvas.clientWidth / game_canvas.clientHeight);
+		//game_canvas.width = game_canvas.height * (game_canvas.clientWidth / game_canvas.clientHeight);
 		ctx = game_canvas.getContext("2d");
 		
 		
@@ -340,7 +339,6 @@
 		<li id='miller_li'><p> Miller </a></li>
 		<li id='adeva_li'><p> Adeva </a></li>
 		<li id='mowo_li'><p> MOWO </a></li>
-		<li id='game_li'><p> Game </a></li>
 		<li id='additional_li'><p> Additional Work </a></li>
 	</ul>
 </nav>
@@ -425,23 +423,14 @@
 				<iframe title="vimeo-player" src="https://player.vimeo.com/video/252401960" width="640" height="360" frameborder="0" allowfullscreen></iframe>	
 		</div>
 	</section>
-	<section class='white' id='game'>
 	
-		<div class='work_container' id='game_work'>
-			<p>
-				Press Enter to start a game; space to pause the game; w,a,s and d to move the pink ball.
-			</p>
-			<canvas id='game_canvas' tabindex='10' width='900px' height='700px'>
-				canvas element unsupported
-			</canvas>
-		</div>
-	</section>
 	<section class='grey' id='additional'>
 		<div class='level_container' id='additional_body'>
 			<nav id='additional_nav'>
 				<ul class='rotate'>
 					<li id='graphic_li'><p>Graphic</p></li>
 					<li id='video_li'><p>Video</p></li>
+					<li id='game_li'><p>Game</p></li>
 					<li id='audio_li'><p>Audio</p></li>
 				</ul>
 			</nav>
@@ -475,6 +464,17 @@
 					</div>
 					<div class='work_container'>
 						<iframe src="https://player.vimeo.com/video/303297984?title=0&byline=0&portrait=0" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe><p><a href="https://vimeo.com/303297984">House &amp; Carriage | Full video</a> from <a href="https://vimeo.com/rblbrandagency">rbl brand agency</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+					</div>
+				</section>
+				<section class='' id='game'>
+	
+					<div class='work_container' id='game_work'>
+						<p>
+							Press Enter to start a game; space to pause the game; w,a,s and d to move the pink ball.
+						</p>
+						<canvas id='game_canvas' tabindex='10' width='900px' height='700px'>
+							canvas element unsupported
+						</canvas>
 					</div>
 				</section>
 				<section id='audio'>

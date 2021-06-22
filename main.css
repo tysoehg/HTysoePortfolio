@@ -17,19 +17,23 @@ body {
 
 	header {
 		width: 100%;
-		height: 1%;
+		height: 10%;
 		
 		overflow: hidden;
 		
+		display: block;
+		
 		position: fixed;
+		top: 0;
 		
 		transition: height 2s;
 		
 		background-color: #FFFF41;
+		
+		z-index: 100;
 	}	
 		header .top {
 			width: 100%;
-			height: auto;
 			
 			text-align: center;
 		}
@@ -44,7 +48,7 @@ body {
 			transition: opacity 5s, height 2s;
 		}
 		header #main_title {
-			opacity: 1;
+			opacity: 0;
 			
 			display: block;
 			
@@ -52,7 +56,7 @@ body {
 		}`
 		
 		header:hover {
-			height: 60%;
+			height: 60% !important;
 		}
 		header:hover #main_cv {
 			height: 500px;
@@ -60,7 +64,7 @@ body {
 			opacity: 1;
 		}
 		header:hover #main_title {
-			
+			opacity: 1;
 		}
 		
 	.level_container {
@@ -79,6 +83,10 @@ body {
 		
 		transition: height 2s;
 	}
+	#main_body {
+		position: fixed;
+		left: 5%;	
+	}
 		nav {
 			width: 5%;
 			height: 98%;
@@ -94,6 +102,7 @@ body {
 			
 			font-size: 120%;
 			
+			z-index: 10;
 		}
 			nav:hover {
 			}
@@ -103,7 +112,7 @@ body {
 			}
 			nav li {
 				width: 100%;
-				height: 20% !important;
+				height: 25% !important;
 				
 				
 				transition: width 1s;
@@ -112,7 +121,7 @@ body {
 				padding: 50% 0;
 			}
 			nav li:hover {
-				background-color: cyan;
+				border-right: 5px solid #008018;
 				
 			}
 			#additional {
@@ -121,9 +130,12 @@ body {
 			#additional_nav {
 				background-color: #FFA52C;
 				left: 5%;
+				
+				z-index: 5;
+				
 			}
 			#additional_nav li {
-				height: 33.4% !important;
+			/*	height: 33.4% !important; */
 				
 				
 			}
@@ -158,7 +170,6 @@ body {
 				transition: opacity 4s;
 			}
 				section article {
-					width: auto;
 					height: 100%;
 					
 					overflow-x: hidden;
@@ -170,6 +181,10 @@ body {
 					overflow: hidden;
 				}
 				#additional_body {
+					position: fixed;
+					right: 0;
+					
+					width: 90%;
 					height:100%;
 				}
 				section div {
