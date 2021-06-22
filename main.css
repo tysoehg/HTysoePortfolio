@@ -25,7 +25,7 @@ body {
 		
 		transition: height 2s;
 		
-		background-color: orange;
+		background-color: #FFFF41;
 	}	
 		header .top {
 			width: 100%;
@@ -49,7 +49,7 @@ body {
 			display: block;
 			
 			transition: opacity 2s;
-		}
+		}`
 		
 		header:hover {
 			height: 60%;
@@ -67,7 +67,7 @@ body {
 		width: 100%;
 		height: 98%;
 		
-		margin-top: 2%;
+		margin-top: 0%;
 		
 		max-width: 100%;
 		max-height: 100%;
@@ -81,21 +81,29 @@ body {
 	}
 		nav {
 			width: 5%;
-			height: 100%;
+			height: 98%;
+			
+			background-color: #FF0018;
+			
+			position: fixed;
+			top: 1%;
+			bottom: 1%;
+			left: 0;
 			
 			transition: width 0.5s;
 			
 			font-size: 120%;
+			
 		}
 			nav:hover {
-				width: 7%;
 			}
 			nav ul {
+				height: 100%;
+				list-style-type: none;
 			}
 			nav li {
 				width: 100%;
-				height: 15%;
-				
+				height: 20% !important;
 				
 				
 				transition: width 1s;
@@ -107,8 +115,16 @@ body {
 				background-color: cyan;
 				
 			}
+			#additional {
+				padding: 0;
+			}
+			#additional_nav {
+				background-color: #FFA52C;
+				left: 5%;
+			}
 			#additional_nav li {
-				height: 33.4%;
+				height: 33.4% !important;
+				
 				
 			}
 			
@@ -128,6 +144,7 @@ body {
 				width: 100%;
 				height: 100%;
 				
+				min-height: 98%;
 				display: flex;
 				flex-direction: column;
 				
@@ -136,10 +153,12 @@ body {
 				
 				text-align: center;
 				
+				padding: 2.5%;
+				
 				transition: opacity 4s;
 			}
 				section article {
-					width: 95%;
+					width: auto;
 					height: 100%;
 					
 					overflow-x: hidden;
@@ -212,7 +231,7 @@ body {
 		position: fixed;
 		bottom: 0;
 		
-		background-color: cyan;
+		background-color: #FFFF41;
 		
 		z-index: 100;
 		
