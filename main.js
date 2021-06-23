@@ -1,6 +1,5 @@
 $(document).ready( function() 
 {
-	retab(sections, nav_links[0]);
 	
 	article 	= document.getElementById("main_content");		
 
@@ -45,4 +44,7 @@ $(document).ready( function()
 	//				retab(additional_links
 		}
 	}
+
+	retab(sections, nav_links[0]);
+
 });
