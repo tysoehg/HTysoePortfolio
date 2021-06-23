@@ -7,66 +7,22 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel='StyleSheet' href='main.css' type='text/css'>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<script src="main.js"></script>
+	<script src="expanda.js"></script>
 	<script>
 	// using jQuery for doc ready 
 	// 	pure js solution possible 
-	$(document).ready(function() {
-		
-		article = document.getElementById("main_content");		
-		sections = article.getElementsByTagName("section");
-		
-		nav = document.getElementById("main_nav");
-		nav_links = document.getElementsByTagName("li");
-		
-		additional_article = document.getElementById("additional_content");
-		additional_sections = additional_article.getElementsByTagName("section");
-		additional_nav = document.getElementById("additional_nav");
-		additional_links = additional_nav.getElementsByTagName("li");
-		
-		
-		nav_links[0].addEventListener("click", function(){ retab(sections, nav_links[0]); } );
-		nav_links[1].addEventListener("click", function(){ retab(sections, nav_links[1]); } );
-		nav_links[2].addEventListener("click", function(){ retab(sections, nav_links[2]); } );
-		nav_links[3].addEventListener("click", function(){ 
-			retab(sections, nav_links[3]);
-			retab(additional_sections, additional_links[0]);
-		});
-		
-		
-		additional_links[0].addEventListener("click", function(){ retab(additional_sections, additional_links[0]); } );
-		additional_links[1].addEventListener("click", function(){ retab(additional_sections, additional_links[1]); } );
-		additional_links[2].addEventListener("click", function(){ retab(additional_sections, additional_links[2]); } );
-		additional_links[3].addEventListener("click", function(){ retab(additional_sections, additional_links[3]); } );
-		
-		
-		function retab(sections_array, link)
-		{
-			// hide all sections
-			for (i = 0; i < sections_array.length; i++) 
-			{
-				sections_array[i].style.display = "none";
-			}
-			// set 
-			section_id = link.id.replace("_li", "");
-			section = document.getElementById(section_id);
-			
-			section.style.display = "flex";
-			if (section_id == "additional")
-			{
-//				retab(additional_links
-			}
-		}
-			
+	
 		
 		
 		
-		retab(sections, nav_links[0]);
 		//retab(additional_sections, additional_links[2]);
 		
 				
-		game_canvas = document.getElementById("game_canvas");
-		flocking_canvas = document.getElementById("flocking_canvas");
-
+		//game_canvas = document.getElementById("game_canvas");
+		//flocking_canvas = document.getElementById("flocking_canvas");
+/*
 		//game_canvas.width = game_canvas.height * (game_canvas.clientWidth / game_canvas.clientHeight);
 		ctx = game_canvas.getContext("2d");
 		
@@ -290,47 +246,7 @@
 		}
 		/*
 		
-		class Canvas_Piece 
-		{
-			constructor(canvas)
-			{
-				const cnv = canvas;
-				const ctx = cnv.getContext("2d");
-				concnv.addEventListener("keydown", this.keyin, true);
-				const entities = [];
-			}
-			this.restart = function()
-			{
-				
-			}
-			this.pause = function()
-			{
-				
-			}
-			this.update = function()
-			{
-				// update this background (if applicable)
-				// call update() on all entities
-			}
-			this.draw = function()
-			{
-				// ctx
-				// 	draw this background
-				// 	call draw() on all entities
-			}
-			this.keyin = function()
-			{
-				// set universal controls 
-				if (e.code == "Enter")
-				{
-					this.restart();
-				}
-				if (e.code == "Space")
-				{
-					this.pause();
-				}
-			}
-		}
+		
 		
 		
 		
@@ -368,8 +284,8 @@
 			
 		}
 		
-		*/
 	});
+		*/
 
 
 	</script>
